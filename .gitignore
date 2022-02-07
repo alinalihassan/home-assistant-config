@@ -1,7 +1,6 @@
 blueprints
 tts
 .*
-!.HA_VERSION
 !.gitignore
 
 google_calendars.yaml
