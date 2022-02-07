@@ -1,0 +1,6 @@
+cover:
+  - platform: group
+    name: "Bedroom Blinds"
+    entities:
+      - cover.bedroom_blind_1
+      - cover.bedroom_blind_2

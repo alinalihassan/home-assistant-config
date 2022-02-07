@@ -1,0 +1,18 @@
+script:
+  home_arrive:
+    alias: Arrive Home
+    sequence:
+      - service: scene.turn_on
+        target:
+          entity_id: scene.arrive_home
+      - delay:
+          seconds: 4
+
+  home_leave:
+    alias: Away
+    sequence:
+      - service: scene.turn_on
+        target:
+          entity_id: scene.away
+      - delay:
+          seconds: 4

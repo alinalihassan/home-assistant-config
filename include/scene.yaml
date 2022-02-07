@@ -1,0 +1,20 @@
+scene:
+  - name: Away
+    entities:
+      light.bathroom_lights: "off"
+      light.bedroom_light: "off"
+      light.hallway_light: "off"
+      light.living_room_lights: "off"
+      light.storage_light: "off"
+      light.toilet_light: "off"
+      cover.bedroom_blinds: "closed"
+      switch.pc_wake_on_lan: "off"
+      vacuum.roborock_vacuum_s5e: "docked"
+      media_player.bedroom_homepod: "paused"
+      media_player.philips_tv: "off"
+
+  - name: Arrive Home
+    entities:
+      light.hallway_light: "on"
+      light.living_room_lights: "on"
+      media_player.philips_tv: "on"

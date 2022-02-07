@@ -1,0 +1,31 @@
+automation:
+  - id: "1643716563137"
+    alias: Open Bathroom Lights on Motion Detected
+    description: ""
+    use_blueprint:
+      path: homeassistant/motion_light.yaml
+      input:
+        motion_entity: binary_sensor.bathroom_motion_sensor
+        light_target:
+          area_id: bathroom
+        no_motion_wait: 300
+  - id: "1643716612785"
+    alias: Open Toilet Lights on Motion Detected
+    description: ""
+    use_blueprint:
+      path: homeassistant/motion_light.yaml
+      input:
+        light_target:
+          area_id: toilet
+        motion_entity: binary_sensor.toilet_motion_sensor
+        no_motion_wait: 300
+  - id: "1643716637136"
+    alias: Open Storage Lights on Motion Detected
+    description: ""
+    use_blueprint:
+      path: homeassistant/motion_light.yaml
+      input:
+        motion_entity: binary_sensor.storage_motion_sensor
+        light_target:
+          area_id: storage_room
+        no_motion_wait: 300

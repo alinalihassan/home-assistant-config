@@ -1,0 +1,74 @@
+default_config:
+
+homeassistant:
+  name: !secret home_name
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  elevation: !secret home_elevation
+  unit_system: !secret unit_system
+  temperature_unit: !secret temperature_unit
+  time_zone: !secret time_zone
+  currency: !secret currency
+  internal_url: !secret internal_url
+  external_url: !secret external_url
+  packages: !include_dir_named include
+  auth_mfa_modules:
+    - type: totp
+  auth_providers:
+    - type: trusted_networks
+      trusted_networks:
+        - 192.168.1.0/24
+      trusted_users:
+        192.168.1.0: 4c0c464442774fe9bb2af8ea84a1e691
+      allow_bypass_login: true
+    - type: homeassistant
+
+wake_on_lan:
+
+tts:
+  - platform: google_translate
+
+frontend:
+  themes: !include_dir_merge_named themes
+
+browser_mod:
+  prefix: browser_
+
+device_tracker:
+  - platform: bluetooth_tracker
+
+# http:
+#   ssl_certificate: /ssl/fullchain.pem
+#   ssl_key: /ssl/privkey.pem
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 172.30.33.0/24
+
+lovelace:
+  mode: yaml
+  resources:
+    - url: /hacsfiles/button-card/button-card.js
+      type: module
+    - url: /hacsfiles/hass-shutter-card/hass-shutter-card.js
+      type: module
+    - url: /hacsfiles/lovelace-card-mod/card-mod.js
+      type: module
+    - url: /hacsfiles/lovelace-layout-card/layout-card.js
+      type: module
+    - url: /hacsfiles/lovelace-xiaomi-vacuum-map-card/xiaomi-vacuum-map-card.js
+      type: module
+    - url: /hacsfiles/mini-graph-card/mini-graph-card-bundle.js
+      type: module
+    - url: /hacsfiles/sidebar-card/sidebar-card.js
+      type: module
+    - url: /hacsfiles/swipe-card/swipe-card.js
+      type: module
+    - url: /hacsfiles/vacuum-card/vacuum-card.js
+      type: module
+    - url: /hacsfiles/light-popup-card/light-popup-card.js
+      type: module
+    - url: /hacsfiles/light-entity-card/light-entity-card.js
+      type: module
+    - url: /hacsfiles/kiosk-mode/kiosk-mode.js
+      type: module

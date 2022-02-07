@@ -1,0 +1,419 @@
+button_card_templates: !include button_card_templates.yaml
+
+# Set ?disable_km to disable it
+kiosk_mode:
+  kiosk: true
+
+sidebar:
+  digitalClock: true
+  clock: false
+  date: true
+  dateFormat: DD MMMM YYYY
+  width:
+    mobile: 0
+    tablet: 25  
+    desktop: 30
+  sidebarMenu:
+    - action: navigate
+      navigation_path: home
+      name: Home
+      active: true
+      icon: mdi:home
+    - action: navigate
+      navigation_path: camera
+      name: Camera
+      icon: mdi:cctv
+  bottomCard:
+    type: vertical-stack
+    cardOptions:
+      cards:
+        - type: weather-forecast
+          entity: weather.home
+          show_forecast: false
+        - type: custom:mini-graph-card
+          name: " "
+          icon: mdi:home-thermometer-outline
+          entities:
+            - sensor.living_room_temperature_sensor_temperature
+          color_thresholds:
+            - value: 21
+              color: "#0846c2"
+            - value: 22
+              color: "#19b7e9"
+            - value: 23
+              color: "#ebd500"
+            - value: 24
+              color: "#c0392b"
+          show:
+            fill: fade
+    cardStyle: |
+      :host {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
+  style: |
+    :host {
+        --sidebar-background: rgba(34,34,34, 0);
+        --sidebar-text-color: var(--primary-text-color);
+    }
+
+    h1.digitalClock {
+        font-weight: 350;
+        font-size: 70px!important;
+        padding-top: 30px;
+        align-self: center;
+    }
+
+    .date {
+        font-weight: 450;
+        line-height: 35px;
+        padding-top: 20px;
+        align-self: center;
+    }
+
+    .template li {
+        font-weight: 450!important;
+        font-size: 26px;
+        line-height: 35px!important;
+        padding-left: 30px;
+        padding-top: 20px;
+    }
+views:
+  - type: custom:grid-layout
+    title: "Home"
+    path: home
+    layout:
+      #default
+      grid-gap: var(--custom-layout-card-padding)
+      grid-template-columns: repeat(3, 1fr) 0
+      grid-template-rows: 0 repeat(2, fit-content(100%)) 0fr
+      grid-template-areas: |
+        ".           .       .         ."
+        "living      bedroom   other   ."
+        "media       machines  home    ."
+        "footer      footer    footer  ."
+    cards:
+      - type: custom:button-card
+        styles: #extra_styles fix
+          card:
+            - display: none
+
+      #################################################
+      #                                               #
+      #                  Living Room                  #
+      #                                               #
+      #################################################
+
+      - type: grid
+        title: Living Room
+        view_layout:
+          grid-area: living
+        columns: 2
+        cards:
+          - type: custom:button-card
+            entity: light.living_room_light_1
+            name: "Light #1"
+            template:
+              - light
+              - icon_spot
+
+          - type: custom:button-card
+            entity: light.living_room_light_2
+            name: "Light #2"
+            template:
+              - light
+              - icon_spot
+
+          - type: custom:button-card
+            entity: light.desk_light
+            name: "Desk Light"
+            template:
+              - light
+              - icon_spot
+
+          - type: custom:button-card
+            entity: remote.philips_tv
+            name: TV
+            template:
+              - base
+              - icon_tv
+              - loader
+
+      #################################################
+      #                                               #
+      #                    Bedroom                    #
+      #                                               #
+      #################################################
+
+      - type: grid
+        title: Bedroom
+        view_layout:
+          grid-area: bedroom
+        columns: 2
+        cards:
+          - type: custom:button-card
+            entity: light.bedroom_light
+            name: Light
+            template:
+              - light
+              - icon_hue
+
+          - type: custom:button-card
+            entity: cover.bedroom_blinds
+            name: Blinds
+            template:
+              - cover
+              - icon_blinds
+
+          - type: custom:button-card
+            entity: media_player.bedroom_homepod
+            name: HomePod
+            tap_action:
+              action: >
+                [[[
+                  return variables.media_on
+                    ? 'call-service'
+                    : 'none';
+                ]]]
+              service: media_player.media_play_pause
+              service_data:
+                entity_id: >
+                  [[[
+                    return variables.entity_id;
+                  ]]]
+            template:
+              - base
+              - icon_monitors
+              - loader
+
+      #################################################
+      #                                               #
+      #                    Other                      #
+      #                                               #
+      #################################################
+
+      - type: grid
+        title: Other Lights
+        view_layout:
+          grid-area: other
+        columns: 2
+        cards:
+          - type: custom:button-card
+            entity: light.bathroom_lights
+            name: Bathroom
+            template:
+              - light
+              - icon_bathroom
+
+          - type: custom:button-card
+            entity: light.storage_light
+            name: Storage
+            template:
+              - light
+              - icon_closet
+
+          - type: custom:button-card
+            entity: light.hallway_light
+            name: Hallway
+            template:
+              - light
+              - icon_spot
+
+          - type: custom:button-card
+            entity: light.toilet_light
+            name: Toilet
+            template:
+              - light
+              - icon_hue
+
+      #################################################
+      #                                               #
+      #                     MEDIA                     #
+      #                                               #
+      #################################################
+
+      - type: grid
+        title: Media
+        view_layout:
+          grid-area: media
+        columns: 1
+        cards:
+          - type: custom:swipe-card
+            start_card: 1
+            parameters:
+              roundLengths: true
+              effect: coverflow
+              speed: 650
+              spaceBetween: 20
+              threshold: 7
+              coverflowEffect:
+                rotate: 80
+                depth: 300
+            cards:
+              - type: horizontal-stack
+                cards:
+                  - type: custom:button-card
+                    entity: media_player.living_room
+                    tap_action:
+                      action: >
+                        [[[
+                          return variables.media_on
+                            ? 'call-service'
+                            : 'none';
+                        ]]]
+                      service: media_player.media_play_pause
+                      service_data:
+                        entity_id: >
+                          [[[
+                            return variables.entity_id;
+                          ]]]
+                    double_tap_action:
+                      action: more-info
+                    template:
+                      - conditional_media
+                      - icon_media
+
+                  - type: conditional
+                    conditions:
+                      - entity: select.conditional_media
+                        state: Apple TV
+                    card:
+                      type: custom:button-card
+                      entity: media_player.living_room
+                      template:
+                        - conditional_media
+                        - icon_apple_tv
+
+                  - type: conditional
+                    conditions:
+                      - entity: select.conditional_media
+                        state: HomePod
+                    card:
+                      type: custom:button-card
+                      entity: media_player.bedroom_homepod
+                      template:
+                        - conditional_media
+                        - icon_apple_tv
+
+              - type: grid
+                columns: 2
+                cards:
+                  - type: custom:button-card
+                    entity: media_player.living_room
+                    name: Apple TV
+                    template:
+                      - media
+                      - icon_apple_tv
+
+                  - type: custom:button-card
+                    entity: media_player.bedroom_homepod
+                    name: HomePod
+                    template:
+                      - media
+                      - icon_apple_tv
+
+      #################################################
+      #                                               #
+      #                    Machines                   #
+      #                                               #
+      #################################################
+
+      - type: grid
+        title: Robots
+        view_layout:
+          grid-area: machines
+        columns: 2
+        cards:
+          - type: custom:button-card
+            entity: vacuum.roborock_vacuum_s5e
+            name: Vacuum
+            template:
+              - vacuum
+              - icon_vacuum
+
+          - type: custom:button-card
+            entity: switch.pc_wake_on_lan
+            name: Computer
+            template:
+              - pc
+              - icon_imac
+
+          - type: custom:button-card
+            entity: switch.washer
+            name: Washer
+            template:
+              - washer
+              - icon_washer
+
+          - type: custom:button-card
+            entity: switch.dryer
+            name: Dryer
+            template:
+              - dryer
+              - icon_dryer
+
+      #################################################
+      #                                               #
+      #                     Home                      #
+      #                                               #
+      #################################################
+
+      - type: grid
+        title: Home
+        view_layout:
+          grid-area: home
+        columns: 2
+        cards:
+          - type: custom:button-card
+            entity: person.alin_ali_hassan
+            name: Alin
+            tap_action: !include popup/home_alin.yaml
+            template: person
+
+          - type: custom:button-card
+            entity: person.diana_state
+            name: Diana
+            tap_action: !include popup/home_diana.yaml
+            template: person
+
+          - type: custom:button-card
+            entity: script.home_leave
+            name: Away
+            # tap_action:
+            #   service: scene.turn_on
+            #   entity: scene.away
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            template:
+              - base
+              - icon_away
+
+          - type: custom:button-card
+            entity: script.home_arrive
+            name: Home
+            # tap_action:
+            #   service: scene.turn_on
+            #   entity: scene.arrive_home
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            template:
+              - base
+              - icon_home
+
+      #################################################
+      #                                               #
+      #                    FOOTER                     #
+      #                                               #
+      #################################################
+
+      - type: custom:button-card
+        view_layout:
+          grid-area: footer
+        entity: sensor.date
+        template: footer_jwst

@@ -1,0 +1,23 @@
+cloud:
+  google_actions:
+    filter:
+      include_entities:
+        - light.bathroom_mirror_spot
+        - light.bathroom_spot_1
+        - light.bathroom_spot_2
+        - light.bedroom_light
+        - light.desk_light
+        - light.hallway_light
+        - light.living_room_light_1
+        - light.living_room_light_2
+        - light.storage_light
+        - light.toilet_light
+        - cover.bedroom_blinds
+        - vacuum.roborock_vacuum_s5e
+        - switch.pc_wake_on_lan
+    entity_config:
+      vacuum.roborock_vacuum_s5e:
+        name: Vacuum
+        room: Living Room
+      cover.bedroom_blinds:
+        room: Living Room

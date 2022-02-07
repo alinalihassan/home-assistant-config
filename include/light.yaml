@@ -1,0 +1,15 @@
+light:
+  - platform: group
+    name: "Living Room Lights"
+    unique_id: living_room_lights
+    entities:
+      - light.living_room_light_1
+      - light.living_room_light_2
+      - light.desk_light
+  - platform: group
+    name: "Bathroom Lights"
+    unique_id: bathroom_lights
+    entities:
+      - light.bathroom_mirror_spot
+      - light.bathroom_spot_1
+      - light.bathroom_spot_2

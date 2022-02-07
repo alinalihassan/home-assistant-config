@@ -1,0 +1,48 @@
+homekit:
+  - name: HASS Bridge
+    filter:
+      include_entities:
+        - light.bathroom_mirror_spot
+        - light.bathroom_spot_1
+        - light.bathroom_spot_2
+        - light.bedroom_light
+        - light.desk_light
+        - light.hallway_light
+        - light.living_room_light_1
+        - light.living_room_light_2
+        - light.storage_light
+        - light.toilet_light
+        - cover.bedroom_blinds
+        - vacuum.roborock_vacuum_s5e
+        - switch.pc_wake_on_lan
+        - sensor.living_room_temperature_sensor_temperature
+        - sensor.living_room_temperature_sensor_humidity
+      exclude_entities:
+        - remote.philips_tv
+        - camera.living_room_camera
+    entity_config:
+      switch.pc_wake_on_lan:
+        name: Computer
+        type: outlet
+      vacuum.roborock_vacuum_s5e:
+        name: Vacuum
+  - name: HASS Bridge TV
+    port: 51828
+    mode: accessory
+    filter:
+      include_entities:
+        - media_player.philips_tv
+    entity_config:
+      media_player.philips_tv:
+        name: Philips TV
+        feature_list:
+          - feature: on_off
+  - name: HASS Bridge Camera
+    port: 51829
+    mode: accessory
+    filter:
+      include_entities:
+        - camera.living_room_camera
+    entity_config:
+      camera.living_room_camera:
+        name: Living Room Camera
