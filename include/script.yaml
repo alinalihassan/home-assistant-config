@@ -16,3 +16,10 @@ script:
           entity_id: scene.away
       - delay:
           seconds: 4
+
+  cast_to_hub:
+    alias: Cast to Nest Hub
+    sequence:
+      - service: shell_command.cast_dashboard_to_display
+      - delay:
+          seconds: 4
