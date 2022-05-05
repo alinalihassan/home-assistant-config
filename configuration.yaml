@@ -72,3 +72,5 @@ lovelace:
       type: module
     - url: /hacsfiles/kiosk-mode/kiosk-mode.js
       type: module
+    - url: /hacsfiles/lovelace-mushroom/mushroom.js
+      type: module
