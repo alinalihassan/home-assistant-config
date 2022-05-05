@@ -8,8 +8,7 @@
 
 settings:
   variables:
-    entity_tablet: switch.galaxy_tab_a_screensaver
-    entity_browser_mod: media_player.browser_9c06ce87_d1cf313c
+    entity_browser_mod: media_player.browser_df98441e_de04e2f3
     translate_unknown: Unknown
 
 #################################################
@@ -791,6 +790,7 @@ conditional_media:
   template:
     - base
     - base_media
+    - media_youtube
   state_display: >
     [[[
       if (entity) {
@@ -906,6 +906,9 @@ conditional_media:
       - margin-bottom: -0.5%
     card:
       - background-color: rgba(115, 115, 115, 0.2)
+      - background-position: center
+      - background-size: cover
+      - background-origin: content-box
       - padding: 5%
       - border-radius: calc(var(--custom-button-card-border-radius) / 2)
       - backdrop-filter: blur(0) #fix chrome bug
@@ -964,6 +967,42 @@ conditional_media:
                 ? 'rgba(255, 255, 255, 0.8)'
                 : '#9da0a2';
             ]]]
+
+#################################################
+#                                               #
+#                 MEDIA YOUTUBE                 #
+#                                               #
+#################################################
+
+media_youtube:
+  variables:
+    token: !secret youtube_api_key
+  custom_fields:
+    youtube: >
+      [[[
+        let elt = this.shadowRoot;
+        if (entity && elt && entity.attributes.app_name === 'YouTube') {
+          let api = 'https://www.googleapis.com/youtube/v3/search',
+            artist = entity.attributes.media_artist,
+            title = entity.attributes.media_title,
+            options = 'type=video&part=snippet&maxResults=1',
+            token = variables.token,
+            random = Math.floor(Math.random() * token.length),
+            url = `${api}?q="${encodeURIComponent(artist)}%20${encodeURIComponent(title)}"&${options}&key=${token}`;
+          fetch(url).then(e => e.json()).then(e => {
+            let json = e.items[0].snippet.thumbnails,
+              hq = json[Object.keys(json).pop()].url,
+              card = elt.getElementById('card'),
+              blur_overlay = elt.getElementById('blur_overlay');
+            if (entity.state !== 'idle' && artist !== undefined && title !== undefined) {
+              card.style.backgroundImage = `url("${hq}")`;
+              blur_overlay.style.backgroundImage = `url("${hq}")`;
+              card.style.backgroundSize = '178%';
+              blur_overlay.style.backgroundSize = '178%';
+            }
+          });
+        }
+      ]]]
 
 #################################################
 #                                               #
