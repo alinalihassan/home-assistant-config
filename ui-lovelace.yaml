@@ -1,7 +1,7 @@
 button_card_templates: !include button_card_templates.yaml
 
 kiosk_mode:
-  hide_header: true
+  hide_header: false
 
 sidebar:
   digitalClock: true
@@ -132,8 +132,9 @@ views:
               - icon_spot
 
           - type: custom:button-card
-            entity: remote.tv
+            entity: media_player.tv
             name: TV
+            hold_action: !include popup/tv.yaml
             template:
               - base
               - icon_tv
