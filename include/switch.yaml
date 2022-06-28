@@ -1,7 +1,7 @@
 switch:
   - platform: wake_on_lan
     name: Computer
-    host: 192.168.1.217
-    mac: D8:5E:D3:0C:5F:08
+    # host: 192.168.1.217
+    mac: "D8:5E:D3:0C:5F:08"
     turn_off:
       service: shell_command.shut_down_on_lan_pc

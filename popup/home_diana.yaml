@@ -78,7 +78,7 @@ browser_mod:
             icon: mdi:bluetooth
             style: *state
 
-          - entity: device_tracker.diana_icloud
+          - entity: device_tracker.diana
             name: Position
             icon: mdi:cellphone
             style: *state

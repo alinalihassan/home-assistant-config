@@ -18,8 +18,9 @@ homekit:
         - sensor.living_room_temperature_sensor_temperature
         - sensor.living_room_temperature_sensor_humidity
       exclude_entities:
-        - remote.philips_tv
+        - camera.hallway_camera
         - camera.living_room_camera
+        - remote.tv
     entity_config:
       switch.pc_wake_on_lan:
         name: Computer
@@ -31,14 +32,23 @@ homekit:
     mode: accessory
     filter:
       include_entities:
-        - media_player.philips_tv
+        - media_player.tv
     entity_config:
-      media_player.philips_tv:
+      media_player.tv:
         name: Philips TV
         feature_list:
           - feature: on_off
   - name: HASS Bridge Camera
     port: 51829
+    mode: accessory
+    filter:
+      include_entities:
+        - camera.hallway_camera
+    entity_config:
+      camera.hallway_camera:
+        name: Hallway Camera
+  - name: HASS Bridge Camera 2
+    port: 51830
     mode: accessory
     filter:
       include_entities:

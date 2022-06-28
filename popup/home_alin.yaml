@@ -78,7 +78,7 @@ browser_mod:
             icon: mdi:bluetooth
             style: *state
 
-          - entity: device_tracker.alin_alis_iphone_icloud
+          - entity: device_tracker.alin_alis_iphone
             name: Position
             icon: mdi:cellphone
             style: *state

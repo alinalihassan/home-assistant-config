@@ -15,9 +15,17 @@ cloud:
         - cover.bedroom_blinds
         - vacuum.roborock_vacuum_s5e
         - switch.pc_wake_on_lan
+        - media_player.tv
+        # Nest cameras configured in the app
+        # TODO: Maybe configure them directly in HASS?
+        # - camera.hallway_camera
+        # - camera.living_room_camera
     entity_config:
       vacuum.roborock_vacuum_s5e:
         name: Vacuum
         room: Living Room
       cover.bedroom_blinds:
+        room: Bedroom
+      media_player.tv:
+        name: TV
         room: Living Room

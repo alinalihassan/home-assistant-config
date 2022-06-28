@@ -33,6 +33,24 @@ frontend:
 
 browser_mod:
   prefix: browser_
+  disable:
+    - all
+
+nest:
+  client_id: !secret nest_client_id
+  client_secret: !secret nest_client_secret
+  project_id: !secret nest_project_id
+
+logger:
+  default: info
+  logs:
+    homeassistant.components.nest: debug
+    homeassistant.components.nest.camera_sdm: debug
+    google_nest_sdm.google_nest_subscriber: debug
+    google_nest_sdm.event: debug
+    google.cloud.pubsub_v1: debug
+    google.cloud.pubsub_v1.subscriber._protocol.leaser: debug
+    google.cloud.pubsub_v1.subscriber._protocol.streaming_pull_manager: debug
 
 device_tracker:
   - platform: bluetooth_tracker

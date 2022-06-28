@@ -11,10 +11,10 @@ scene:
       switch.pc_wake_on_lan: "off"
       vacuum.roborock_vacuum_s5e: "docked"
       media_player.bedroom_homepod: "paused"
-      media_player.philips_tv: "off"
+      media_player.tv: "off"
 
   - name: Arrive Home
     entities:
       light.hallway_light: "on"
       light.living_room_lights: "on"
-      media_player.philips_tv: "on"
+      media_player.tv: "on"

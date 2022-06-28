@@ -29,3 +29,33 @@ automation:
         light_target:
           area_id: storage_room
         no_motion_wait: 300
+  - id: "1656239974634"
+    alias: Test Person
+    description: ""
+    trigger:
+      - platform: device
+        device_id: 501bd1258cfdf4016ee86e46df304e3f
+        domain: nest
+        type: camera_person
+    condition: []
+    action:
+      - type: turn_on
+        device_id: 79f80210f81e03d76d2b97d5eb4fd3cd
+        entity_id: light.hallway_light
+        domain: light
+    mode: single
+  - id: '1656321339197'
+    alias: Test Motion
+    description: ''
+    trigger:
+    - platform: device
+      device_id: 501bd1258cfdf4016ee86e46df304e3f
+      domain: nest
+      type: camera_motion
+    condition: []
+    action:
+    - type: turn_on
+      device_id: 79f80210f81e03d76d2b97d5eb4fd3cd
+      entity_id: light.hallway_light
+      domain: light
+    mode: single
