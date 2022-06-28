@@ -328,6 +328,7 @@ views:
           - type: custom:button-card
             entity: vacuum.roborock_vacuum_s5e
             name: Vacuum
+            hold_action: !include popup/vacuum.yaml
             template:
               - vacuum
               - icon_vacuum

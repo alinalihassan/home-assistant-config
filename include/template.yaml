@@ -50,3 +50,18 @@ template:
           data:
             option: >
               {{ option }}
+
+      - name: vacuum_speed
+        state: >
+          {% set fan_speed = state_attr('vacuum.roborock_vacuum_s5e', 'fan_speed') %}
+          {{ iif(fan_speed == None, 'Standard', fan_speed) }}
+        options: >
+          {% set fan_speed_list = state_attr('vacuum.roborock_vacuum_s5e', 'fan_speed_list') %}
+          {{ iif(fan_speed_list == None, ['Standard'], fan_speed_list) }}
+        select_option:
+          service: vacuum.set_fan_speed
+          target:
+            entity_id: vacuum.roborock_vacuum_s5e
+          data:
+            fan_speed: >
+              {{ option }}
